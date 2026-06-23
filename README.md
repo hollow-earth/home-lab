@@ -1,7 +1,13 @@
 # home-lab
 
 ## Storage
-The NAS (UGREEN DXP4800 Plus, 4-bay) hosts one storage pool, which contains one vdev (raidz1), which is comprised of 4 physical disks. I chose raidz1 in order to maximize storage space while still retaining a parity disk: this allows me to have a total of 42TB of usable space. There is a secondary pool on another device which I periodically offload the important data for cold storage in order to have a more reliable storage solution. In case of data loss due to a force majeure or an malicious program, I will still have at least one offline copy. Naturally, both pools are fully encrypted (to be more technical, all the datasets are encrypted, not the pool itself).
+The NAS (UGREEN DXP4800 Plus, 4-bay) hosts the primary storage pool. The pool consists of a single RAIDZ1 vdev backed by four physical disks.
+
+I chose RAIDZ1 to maximize usable capacity while retaining a one disk fault tolerance. This provides close to 42 TB of usable storage while allowing any one drive to fail without data loss.
+
+A secondary ZFS pool is maintained on an external hard drive for cold storage. Important datasets are periodically replicated to this pool, providing an offline copy that protects against hardware failure, accidental deletion, ransomware, and other catastrophic events. This follows the spirit of the 3-2-1 backup strategy by maintaining an offline backup separate from the primary NAS.
+
+While the storage pools themselves are not encrypted, every dataset is encrypted individually with its own encryption key. This provides isolation between datasets while still allowing the pool to be imported without requiring immediate decryption.
 
 ```text
 Storage
@@ -19,9 +25,10 @@ Storage
         └── disk 1: WD 5TB (External)
 ```
 
-The storage pool has many datasets, all of which have different encryption keys:
+The storage pool is divided into multiple datasets, each with its own encryption key and configuration.
+
 ```text
-storage_bak/
+storage/
 ├── archive/
 ├── audio/
 ├── backups/
@@ -73,7 +80,7 @@ storage_bak/
   - **library**: Primary media library containing movies, television shows, and other videos.
   - **youtube**: Automatically synchronized YouTube content downloaded with `ytdl-sub` and indexed by Jellyfin for offline viewing.
 
-I scheduled monthly scrubs in order to ensure data integrity.
+To ensure long-term data integrity, the primary storage pool is scrubbed automatically once per month.
 
 ## Services
 
