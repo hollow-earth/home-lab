@@ -58,16 +58,9 @@ storage/
 
 - **archive**: Long-term archival storage for files that are rarely accessed but should be retained. Uses a high compression ratio.
 - **audio**: Music library.
-- **backups**
-  - **data**: General-purpose backup dataset. Primarily stores BorgBackup repositories for workstation backups.
-  - **devices**: Backups of external devices such as phones and the Steam Deck.
-  - **lxc**: Backup storage for all LXC containers.
+- **backups**: General-purpose backup dataset. Primarily stores BorgBackup repositories for workstation backups. Backups of external devices such as phones and the Steam Deck.
 - **docker**: Legacy Docker data from a previous deployment that is being retained until it can be reviewed and migrated.
-- **documents**: General documents including correspondence, legal documents, and personal records.
-  - **ledger**: Financial records, receipts, and transaction history.
-  - **obsidian**: Obsidian vault shared to my workstation via NFS. Frequent ZFS snapshots provide version history and protection against accidental changes.
-  - **resume**: Résumé, cover letters, and job search documentation.
-  - **taxes**: Provincial and federal tax records.
+- **documents**: General documents including correspondence, legal documents, and personal records. Financial records, receipts, and transaction history. Obsidian vault shared to my workstation via NFS. Frequent ZFS snapshots provide version history and protection against accidental changes. Résumé, cover letters, and job search documentation. Provincial and federal tax records.
 - **game_library**: Network-accessible game installation library shared over NFS. Allows Steam and Heroic Launcher to reuse existing installations instead of downloading games again.
 - **games**: Game-related data including save files, ROMs, executables, mods, and reference material.
 - **images**: Photo library managed primarily through PhotoPrism.
@@ -75,10 +68,7 @@ storage/
 - **security**: Encrypted backups and other sensitive data.
 - **share**: General-purpose shared storage for manually transferring files between devices.
 -  **software**: Software development projects, scripts, utilities, and archived applications.
-- **video**
-  - **ingest**: Staging area for newly acquired media before processing. Files are remuxed, transcoded with FFmpeg when necessary, and prepared for the media library.
-  - **library**: Primary media library containing movies, television shows, and other videos.
-  - **youtube**: Automatically synchronized YouTube content downloaded with `ytdl-sub` and indexed by Jellyfin for offline viewing.
+- **video**: Staging area for newly acquired media before processing. Files are remuxed, transcoded with FFmpeg when necessary, and prepared for the media library. Primary media library containing movies, television shows, and other videos. Automatically synchronized YouTube content downloaded with `ytdl-sub` and indexed by Jellyfin for offline viewing.
 
 To ensure long-term data integrity, the primary storage pool is scrubbed automatically once per month.
 
